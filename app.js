@@ -57,29 +57,59 @@ const managerQuestions = [
         }
     ]
 
+const continueQuestion = [
+    {
+        type: "confirm",
+        name: "continue",
+        message: "Would you like to add another Team Member?"
+    }
+]
 
+const team = [];
+
+async function generateTeam() {
 promptEmployee().then(function (res) {
-    console.log(res);
+    
+    const teamMember = [];
 
     switch (res.role) {
         case 'Manager':
             inquirer.prompt(managerQuestions).then(function(results){
-                console.log(results.officeNumber);
+                teamMember.push(res, results);
+                generate(teamMember);
             });
             break;
        
         case 'Intern':
             inquirer.prompt(internQuestions).then(function(results){
-                console.log(results.school);
+                teamMember.push(res, results);
+                generate(teamMember);
             });
             break;
 
         case 'Engineer':
             inquirer.prompt(engineerQuestions).then(function(results){
-                console.log(results.github);
+                teamMember.push(res, results);
+                generate(teamMember);
             });
             break;
     }
 });
+};
 
+const generate = teamMember => {
+    team.push(teamMember);
+    console.log(team);
+    inquirer.prompt(continueQuestion).then(function(answer){
+        if(answer.continue === true) {
+            console.log("You are adding another employee. Please answer the following questions again!");
+            generateTeam();
+        }
+        else {
+            console.log("Here is your team!");
+        }
+    }) 
+}
+
+generateTeam();
 

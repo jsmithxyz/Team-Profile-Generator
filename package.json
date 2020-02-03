@@ -1,0 +1,29 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Creates a team profile based on User Input",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --verbose test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsmithxyz/Team-Profile-Generator"
+  },
+  "author": "Jordan Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsmithxyz/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/jsmithxyz/Team-Profile-Generator",
+  "dependencies": {
+    "inquirer": "^6.5.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}

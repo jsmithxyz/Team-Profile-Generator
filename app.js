@@ -2,10 +2,6 @@ const inquirer = require("inquirer");
 
 // require need information
 
-
-
-
-
 function promptEmployee(){
     return inquirer.prompt([
         {
@@ -35,37 +31,55 @@ function promptEmployee(){
         }
     ])};
 
-function promptEngineer(){
-    return inquirer.prompt()[
+const engineerQuestions = [
         {
             type: "input",
             name: "github",
             message: "Enter your Github username:"
         }
     ]
-}
 
-function promptIntern(){
-    return inquirer.prompt()[
+
+const internQuestions = [
         {
             type: "input",
             name: "school",
             message: "Enter your School Name:"
         }
     ]
-}
 
-function promptManager(){
-    return inquirer.prompt()[
+
+const managerQuestions = [
         {
             type: "number",
             name: "officeNumber",
             message: "Enter your Office Number"
         }
     ]
-}
 
-promptEmployee().then(function ({name, id, email, role}) {
-    console.log(name,id,email,role);
+
+promptEmployee().then(function (res) {
+    console.log(res);
+
+    switch (res.role) {
+        case 'Manager':
+            inquirer.prompt(managerQuestions).then(function(results){
+                console.log(results.officeNumber);
+            });
+            break;
+       
+        case 'Intern':
+            inquirer.prompt(internQuestions).then(function(results){
+                console.log(results.school);
+            });
+            break;
+
+        case 'Engineer':
+            inquirer.prompt(engineerQuestions).then(function(results){
+                console.log(results.github);
+            });
+            break;
+    }
 });
+
 

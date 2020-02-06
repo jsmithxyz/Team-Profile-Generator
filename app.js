@@ -146,7 +146,7 @@ const createHTML = team => {
 }
 
 async function createRoster(roster) {
-fs.writeFile("roster.html", roster, err => {
+fs.writeFile("./output/roster.html", roster, err => {
     if (err) {
         console.log(err);
     }

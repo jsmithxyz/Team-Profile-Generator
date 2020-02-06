@@ -1,13 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-// require need information
-
 const Manager = require("./lib/manager.js");
 const Engineer = require("./lib/engineer.js");
 const Intern = require("./lib/intern.js")
 
-//to generate html file
 const managerCard = require("./templates/managerHTML");
 const engineerCard = require("./templates/engineerHTML");
 const internCard = require("./templates/internHTML");

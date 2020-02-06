@@ -1,6 +1,19 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 
 // require need information
+
+const Manager = require("./lib/manager.js");
+const Engineer = require("./lib/engineer.js");
+const Intern = require("./lib/intern.js")
+
+//to generate html file
+const managerCard = require("./templates/managerHTML");
+const engineerCard = require("./templates/engineerHTML");
+const internCard = require("./templates/internHTML");
+
+const generateHTML = require("./templates/main")
+
 
 function promptEmployee(){
     return inquirer.prompt([
@@ -99,17 +112,49 @@ promptEmployee().then(function (res) {
 
 const generate = teamMember => {
     team.push(teamMember);
-    console.log(team);
     inquirer.prompt(continueQuestion).then(function(answer){
         if(answer.continue === true) {
             console.log("You are adding another employee. Please answer the following questions again!");
             generateTeam();
         }
         else {
-            console.log("Here is your team!");
+            console.log("Processing your team...");
+            createHTML(team);
+            const roster = generateHTML(strHTML);
+            console.log(roster);
+            createRoster(roster);
         }
     }) 
 }
 
 generateTeam();
 
+const createHTML = team => {
+    strHTML = "";
+    for (var i = 0; i < team.length; i++) {
+        if (team[i][0].role === 'Manager') {
+            const newManager = new Manager(team[i][0].name, team[i][0].id, team[i][0].email, team[i][1].officeNumber);
+            strHTML += managerCard(newManager);
+        }
+        else if (team[i][0].role === 'Engineer'){
+            const newEngineer = new Engineer(team[i][0].name, team[i][0].id, team[i][0].email, team[i][1].github);
+            strHTML += engineerCard(newEngineer);
+      }
+        else if (team[i][0].role === 'Intern'){
+            const newIntern = new Intern(team[i][0].name, team[i][0].id, team[i][0].email, team[i][1].school);
+            strHTML += internCard(newIntern);
+    }
+    }
+    
+}
+
+async function createRoster(roster) {
+fs.writeFile("roster.html", roster, err => {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        console.log("Your team has been generated!");
+    }
+})
+};
